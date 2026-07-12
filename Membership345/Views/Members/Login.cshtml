@@ -11,6 +11,8 @@
                 <h2 class="card-title text-center mb-4">Giriş Yap</h2>
 
                 <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="mb-3">
                         <label for="email" class="form-label">E-posta</label>
                         <input type="email" class="form-control" id="email" asp-for="Email" required>
