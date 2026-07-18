@@ -13,6 +13,13 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationUserRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(cfg =>
+{
+    cfg.LoginPath = new PathString("/members/login");
+    cfg.LogoutPath = new PathString("/members/logout");
+    cfg.AccessDeniedPath = new PathString("/members/accessdenied");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

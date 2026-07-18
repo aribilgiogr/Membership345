@@ -1,0 +1,27 @@
+﻿@using Membership345.Data
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a asp-action="index" asp-controller="members" class="nav-link">Merhaba, @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form asp-action="logout" asp-controller="members" method="post">
+                <button type="submit" class="nav-link btn btn-link border-0">Çıkış Yap</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a asp-action="login" asp-controller="members" class="nav-link">Giriş Yap</a>
+        </li>
+        <li class="nav-item">
+            <a asp-action="register" asp-controller="members" class="nav-link">Kayıt Ol</a>
+        </li>
+    }
+</ul>

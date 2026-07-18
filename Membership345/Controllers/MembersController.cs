@@ -1,5 +1,6 @@
 ﻿using Membership345.Data;
 using Membership345.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -17,9 +18,10 @@ namespace Membership345.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await userManager.GetUserAsync(User));
         }
 
         public IActionResult Login()
@@ -94,7 +96,7 @@ namespace Membership345.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
